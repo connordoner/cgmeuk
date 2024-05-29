@@ -15,9 +15,16 @@ output "vpc_id" {
 resource "aws_default_route_table" "default" {
   default_route_table_id = aws_vpc.default.default_route_table_id
 
+  # Route for traffic between subnets
   route {
     cidr_block = var.network_cidr_block
     gateway_id = "local"
+  }
+
+  # Route for bidirectional internet traffic from and to public-facing resources
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.default.id
   }
 
   tags = {
