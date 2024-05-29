@@ -7,4 +7,6 @@ environment = "development"
 domains = ["example.com"]
 
 # Network configuration
-network_cidr_block = "10.0.0.0/27"
+network_cidr_block          = "10.0.0.0/16"
+network_core_subnet_range   = "10.0.0.0/28"
+network_public_subnet_range = "10.0.1.0/28"

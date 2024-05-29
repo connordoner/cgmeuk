@@ -44,9 +44,19 @@ resource "aws_internet_gateway" "default" {
 # Subnet for network-related resources
 resource "aws_subnet" "network" {
   vpc_id            = aws_vpc.default.id
-  cidr_block        = var.network_subnet_range
+  cidr_block        = var.network_core_subnet_range
 
   tags = {
     Name = "cgmeuk-${var.environment}-network"
+  }
+}
+
+# Subnet for public-facing resources
+resource "aws_subnet" "public" {
+  vpc_id     = aws_vpc.default.id
+  cidr_block = var.network_public_subnet_range
+
+  tags = {
+    Name = "cgmeuk-${var.environment}-public"
   }
 }

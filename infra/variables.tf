@@ -24,7 +24,14 @@ variable "network_cidr_block" {
 }
 
 # CIDR range to use for subnet housing network-related resources
-variable "network_subnet_range" {
+variable "network_core_subnet_range" {
   description = "CIDR range to use for subnet housing network-related resources"
   type        = string
 }
+
+# CIDR range to use for subnet housing public-facing resources
+variable "network_public_subnet_range" {
+  description = "CIDR range to use for subnet housing public-facing resources"
+  type        = string
+}
+
