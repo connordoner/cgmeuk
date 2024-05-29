@@ -88,8 +88,9 @@ output "core_subnet_id_c" {
 
 # Subnet for public-facing resources in availability zone A
 resource "aws_subnet" "public_a" {
-  vpc_id     = aws_vpc.default.id
-  cidr_block = var.network_public_subnet_range_a
+  vpc_id            = aws_vpc.default.id
+  cidr_block        = var.network_public_subnet_range_a
+  availability_zone = "eu-west-2a"
 
   tags = {
     Name = "cgmeuk-${var.environment}-a-public"
@@ -102,8 +103,9 @@ output "public_subnet_id_a" {
 
 # Subnet for public-facing resources in availability zone B
 resource "aws_subnet" "public_b" {
-  vpc_id     = aws_vpc.default.id
-  cidr_block = var.network_public_subnet_range_b
+  vpc_id            = aws_vpc.default.id
+  cidr_block        = var.network_public_subnet_range_b
+  availability_zone = "eu-west-2b"
 
   tags = {
     Name = "cgmeuk-${var.environment}-b-public"
@@ -116,8 +118,9 @@ output "public_subnet_id_b" {
 
 # Subnet for public-facing resources in availability zone C
 resource "aws_subnet" "public_c" {
-  vpc_id     = aws_vpc.default.id
-  cidr_block = var.network_public_subnet_range_c
+  vpc_id            = aws_vpc.default.id
+  cidr_block        = var.network_public_subnet_range_c
+  availability_zone = "eu-west-2c"
 
   tags = {
     Name = "cgmeuk-${var.environment}-c-public"
