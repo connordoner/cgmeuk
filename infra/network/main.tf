@@ -7,6 +7,10 @@ resource "aws_vpc" "default" {
   }
 }
 
+output "vpc_id" {
+  value = aws_vpc.default.id
+}
+
 # Route table
 resource "aws_default_route_table" "default" {
   default_route_table_id = aws_vpc.default.default_route_table_id

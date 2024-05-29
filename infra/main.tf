@@ -4,6 +4,7 @@ module "network" {
 
   environment          = var.environment
   domains              = var.domains
+  network_vpc_id       = null
   network_cidr_block   = var.network_cidr_block
   network_subnet_range = var.network_subnet_range
 }
@@ -19,7 +20,7 @@ module "web" {
 
   environment          = var.environment
   domains              = var.domains
+  network_vpc_id       = null
   network_cidr_block   = var.network_cidr_block
   network_subnet_range = var.network_subnet_range
 }
-
