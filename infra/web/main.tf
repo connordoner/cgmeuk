@@ -1,3 +1,99 @@
+# SSL/TLS certificate
+resource "aws_acm_certificate" "default" {
+  domain_name               = var.domains[0]
+  subject_alternative_names = var.domains
+
+  # Once I've moved my DNS records to Route 53, I'll change this to DNS
+  validation_method = "EMAIL"
+  
+  # This ensures that I can validate domain ownership for subdomains that don't
+  # receive email
+  dynamic "validation_option" {
+    for_each = var.domains
+    content {
+      domain_name       = validation_option.value
+      validation_domain = "connorgurney.me.uk"
+    }
+  }
+
+  # This creates a new SSL certificate before destroying the old one
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+# Load balancer
+resource "aws_lb" "default" {
+  name               = "cgmeuk-${var.environment}"
+  load_balancer_type = "application"
+  internal           = false
+
+  # Networking
+  subnets = [
+    var.network_public_subnet_id_a,
+    var.network_public_subnet_id_b,
+    var.network_public_subnet_id_c
+  ]
+
+  # Security
+  security_groups    = [aws_security_group.lb.id]
+}
+
+# Target group for load balancer
+resource "aws_lb_target_group" "default" {
+  name        = "cgmeuk-${var.environment}"
+  vpc_id      = var.network_vpc_id
+  target_type = "ip"
+  protocol    = "HTTP"
+  port        = 80
+}
+
+# Listener for load balancer
+resource "aws_lb_listener" "default" {
+  load_balancer_arn = aws_lb.default.arn
+  protocol          = "HTTPS"
+  port              = "443"
+  certificate_arn   = aws_acm_certificate.default.arn
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.default.arn
+  }
+}
+
+# Security group for load balancer
+resource "aws_security_group" "lb" {
+  vpc_id     = var.network_vpc_id
+  name       = "cgmeuk-${var.environment}-lb"
+
+  # Allow all outbound traffic
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  # Allow inbound traffic on HTTP
+  ingress {
+    from_port        = 80
+    to_port          = 80
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  # Allow inbound traffic on HTTPS
+  ingress {
+    from_port        = 443
+    to_port          = 443
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+}
+
 # Security group for web servers
 resource "aws_security_group" "web" {
   vpc_id = var.network_vpc_id
@@ -12,15 +108,12 @@ resource "aws_security_group" "web" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
-  # Allow inbound traffic on HTTP
-  # TODO: Replace this with HTTPS when a load balancer is in place and can deal
-  # with SSL/TLS
+  # Allow inbound traffic on HTTP from load balancer
   ingress {
     from_port        = 80
     to_port          = 80
     protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+    security_groups = [aws_security_group.lb.id]
   }
 }
 
@@ -77,6 +170,7 @@ resource "aws_ecs_task_definition" "web" {
 # ECS service for web servers
 resource "aws_ecs_service" "web" {
   name            = "cgmeuk-${var.environment}-web"
+  depends_on      = [aws_lb_listener.default]
   cluster         = var.ecs_cluster_id
   task_definition = aws_ecs_task_definition.web.arn
 
@@ -100,28 +194,11 @@ resource "aws_ecs_service" "web" {
     # TODO: After setting up a load balancer, I'll remove this
     assign_public_ip = true
   }
-}
 
-# SSL/TLS certificate
-resource "aws_acm_certificate" "default" {
-  domain_name               = var.domains[0]
-  subject_alternative_names = var.domains
-
-  # Once I've moved my DNS records to Route 53, I'll change this to DNS
-  validation_method = "EMAIL"
-  
-  # This ensures that I can validate domain ownership for subdomains that don't
-  # receive email
-  dynamic "validation_option" {
-    for_each = var.domains
-    content {
-      domain_name       = validation_option.value
-      validation_domain = "connorgurney.me.uk"
-    }
-  }
-
-  # This creates a new SSL certificate before destroying the old one
-  lifecycle {
-    create_before_destroy = true
+  # Target group registration
+  load_balancer {
+    target_group_arn = aws_lb_target_group.default.arn
+    container_name   = "cgmeuk-${var.environment}-web"
+    container_port   = 80
   }
 }
