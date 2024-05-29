@@ -3,6 +3,10 @@ resource "aws_ecs_cluster" "default" {
   name = "cgmeuk-${var.environment}"
 }
 
+output "cluster_id" {
+  value = aws_ecs_cluster.default.id
+}
+
 # IAM role for ECS task execution
 resource "aws_iam_role" "ecs_task_execution" {
   name = "cgmeuk-${var.environment}-ecs-task-execution-role"

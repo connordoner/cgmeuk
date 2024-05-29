@@ -10,6 +10,8 @@ module "network" {
   network_core_subnet_range   = var.network_core_subnet_range
   network_public_subnet_id    = null
   network_public_subnet_range = var.network_public_subnet_range
+  ecs_cluster_id              = null
+  ecs_task_execution_role_arn = null
 }
 
 # ECS
@@ -24,6 +26,8 @@ module "ecs" {
   network_core_subnet_range   = var.network_core_subnet_range
   network_public_subnet_id    = module.network.public_subnet_id
   network_public_subnet_range = var.network_public_subnet_range
+  ecs_cluster_id              = null
+  ecs_task_execution_role_arn = null
 }
 
 # Web
@@ -38,4 +42,6 @@ module "web" {
   network_core_subnet_range   = var.network_core_subnet_range
   network_public_subnet_id    = module.network.public_subnet_id
   network_public_subnet_range = var.network_public_subnet_range
+  ecs_cluster_id              = module.ecs.cluster_id
+  ecs_task_execution_role_arn = module.ecs.task_execution_role_arn
 }
