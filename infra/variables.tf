@@ -4,6 +4,12 @@ variable "environment" {
   type        = string
 }
 
+# Domain names used to serve this environment
+variable "domains" {
+  description = "Domain names used to serve this environment."
+  type        = list(string)
+}
+
 # CIDR block to use when addressing Terraform-generated resources
 variable "network_cidr_block" {
   description = "CIDR block to use when addressing Terraform-generated resources."
