@@ -41,30 +41,89 @@ resource "aws_internet_gateway" "default" {
   }
 }
 
-# Subnet for network-related resources
-resource "aws_subnet" "core" {
+# Subnet for network-related resources in availability zone A
+resource "aws_subnet" "core_a" {
   vpc_id            = aws_vpc.default.id
-  cidr_block        = var.network_core_subnet_range
+  cidr_block        = var.network_core_subnet_range_a
+  availability_zone = "eu-west-2a"
 
   tags = {
-    Name = "cgmeuk-${var.environment}-core"
+    Name = "cgmeuk-${var.environment}-a-core"
   }
 }
 
-output "core_subnet_id" {
-  value = aws_subnet.core.id
+output "core_subnet_id_a" {
+  value = aws_subnet.core_a.id
 }
 
-# Subnet for public-facing resources
-resource "aws_subnet" "public" {
+# Subnet for network-related resources in availability zone B
+resource "aws_subnet" "core_b" {
+  vpc_id            = aws_vpc.default.id
+  cidr_block        = var.network_core_subnet_range_b
+  availability_zone = "eu-west-2b"
+
+  tags = {
+    Name = "cgmeuk-${var.environment}-b-core"
+  }
+}
+
+output "core_subnet_id_b" {
+  value = aws_subnet.core_b.id
+}
+
+# Subnet for network-related resources in availability zone C
+resource "aws_subnet" "core_c" {
+  vpc_id            = aws_vpc.default.id
+  cidr_block        = var.network_core_subnet_range_c
+  availability_zone = "eu-west-2c"
+
+  tags = {
+    Name = "cgmeuk-${var.environment}-c-core"
+  }
+}
+
+output "core_subnet_id_c" {
+  value = aws_subnet.core_c.id
+}
+
+# Subnet for public-facing resources in availability zone A
+resource "aws_subnet" "public_a" {
   vpc_id     = aws_vpc.default.id
-  cidr_block = var.network_public_subnet_range
+  cidr_block = var.network_public_subnet_range_a
 
   tags = {
-    Name = "cgmeuk-${var.environment}-public"
+    Name = "cgmeuk-${var.environment}-a-public"
   }
 }
 
-output "public_subnet_id" {
-  value = aws_subnet.public.id
+output "public_subnet_id_a" {
+  value = aws_subnet.public_a.id
+}
+
+# Subnet for public-facing resources in availability zone B
+resource "aws_subnet" "public_b" {
+  vpc_id     = aws_vpc.default.id
+  cidr_block = var.network_public_subnet_range_b
+
+  tags = {
+    Name = "cgmeuk-${var.environment}-b-public"
+  }
+}
+
+output "public_subnet_id_b" {
+  value = aws_subnet.public_b.id
+}
+
+# Subnet for public-facing resources in availability zone C
+resource "aws_subnet" "public_c" {
+  vpc_id     = aws_vpc.default.id
+  cidr_block = var.network_public_subnet_range_c
+
+  tags = {
+    Name = "cgmeuk-${var.environment}-c-public"
+  }
+}
+
+output "public_subnet_id_c" {
+  value = aws_subnet.public_c.id
 }

@@ -84,13 +84,17 @@ resource "aws_ecs_service" "web" {
   launch_type = "FARGATE"
 
   # How many containers to launch
-  # TODO: When I have an idea of how much traffic I'm likely to get and end up
-  # finally deploying to multiple availability zones, I'll need to increase this
-  desired_count = 1
+  # Three is a minimum if I want to run across all three of the availability
+  # zones in my region
+  desired_count = 3
 
   # Networking
   network_configuration {
-    subnets         = [var.network_public_subnet_id]
+    subnets = [
+      var.network_public_subnet_id_a,
+      var.network_public_subnet_id_b,
+      var.network_public_subnet_id_c
+    ]
     security_groups = [aws_security_group.web.id]
 
     # TODO: After setting up a load balancer, I'll remove this
