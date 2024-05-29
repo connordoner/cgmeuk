@@ -6,7 +6,9 @@ module "network" {
   domains                     = var.domains
   network_vpc_id              = null
   network_cidr_block          = var.network_cidr_block
+  network_core_subnet_id      = null
   network_core_subnet_range   = var.network_core_subnet_range
+  network_public_subnet_id    = null
   network_public_subnet_range = var.network_public_subnet_range
 }
 
@@ -18,7 +20,9 @@ module "ecs" {
   domains                     = var.domains
   network_vpc_id              = module.network.vpc_id
   network_cidr_block          = var.network_cidr_block
+  network_core_subnet_id      = module.network.core_subnet_id
   network_core_subnet_range   = var.network_core_subnet_range
+  network_public_subnet_id    = module.network.public_subnet_id
   network_public_subnet_range = var.network_public_subnet_range
 }
 
@@ -30,6 +34,8 @@ module "web" {
   domains                     = var.domains
   network_vpc_id              = module.network.vpc_id
   network_cidr_block          = var.network_cidr_block
+  network_core_subnet_id      = module.network.core_subnet_id
   network_core_subnet_range   = var.network_core_subnet_range
+  network_public_subnet_id    = module.network.public_subnet_id
   network_public_subnet_range = var.network_public_subnet_range
 }

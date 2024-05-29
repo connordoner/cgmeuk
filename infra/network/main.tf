@@ -51,6 +51,10 @@ resource "aws_subnet" "core" {
   }
 }
 
+output "core_subnet_id" {
+  value = aws_subnet.core.id
+}
+
 # Subnet for public-facing resources
 resource "aws_subnet" "public" {
   vpc_id     = aws_vpc.default.id
@@ -59,4 +63,8 @@ resource "aws_subnet" "public" {
   tags = {
     Name = "cgmeuk-${var.environment}-public"
   }
+}
+
+output "public_subnet_id" {
+  value = aws_subnet.public.id
 }
