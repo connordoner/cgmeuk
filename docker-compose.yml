@@ -3,3 +3,8 @@ services:
     build:
       dockerfile: ./infra/web/Dockerfile
       context: .
+    ports:
+      - "80:80"
+    volumes:
+      - ./config/nginx/default.conf:/etc/nginx/http.d/default.conf
+      - ./config/nginx/test.html:/var/www/html/index.html
