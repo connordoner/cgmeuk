@@ -11,7 +11,7 @@ COPY ./config/nginx/default.conf /etc/nginx/http.d/default.conf
 
 # Add test page to Nginx
 WORKDIR /var/www/html
-COPY ./config/nginx/test.html ./index.html
+COPY ./config/nginx/tmp.html ./index.html
 RUN chown nginx:nginx ./index.html
 
 # Run Nginx
