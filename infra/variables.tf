@@ -35,3 +35,9 @@ variable "network_public_subnet_range" {
   type        = string
 }
 
+# ARN of the task execution role for ECS to use when running tasks
+variable "ecs_task_execution_role_arn" {
+  description = "ARN of the task execution role for ECS to use when running tasks."
+  type        = string
+  default     = null
+}
