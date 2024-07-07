@@ -1,0 +1,5 @@
+# Infrastructure
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
