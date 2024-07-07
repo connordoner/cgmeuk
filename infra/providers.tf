@@ -1,5 +1,13 @@
 # Terraform configuration
 terraform {
+  cloud {
+    organization = "connordoner"
+
+    workspaces {
+      name = "cgmeuk"
+    }
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
