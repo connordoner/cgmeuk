@@ -21,8 +21,6 @@ The only time that I won’t do this will be when doing so would be detrimental 
 
 ## Consequences
 
-Any passwords or secrets that I accidentally publish, such as API keys, are likely to be the victim of compromise almost immediately. I’ll mitigate this by enabling GitHub’s [secret scanning feature][secretscanning].
+Any passwords or secrets that I accidentally publish, such as API keys, are likely to be the victim of compromise almost immediately. I’ll mitigate this by enabling GitHub’s [secret scanning feature](https://docs.github.com/en/code-security/secret-scanning).
 
 I also anticipate that I’ll receive a small number of external contributions to my personal website which I wouldn’t receive otherwise. Now that I have more free time, I’ll be easily able to handle the volume that I anticipate.
-
-[secretscanning]: https://docs.github.com/en/code-security/secret-scanning
