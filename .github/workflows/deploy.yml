@@ -1,6 +1,6 @@
 name: "Deploy"
 env:
-  TF_CLOUD_ORGANIZATION: connordoner
+  TF_CLOUD_ORGANIZATION: connorgurney
   TF_WORKSPACE: cgmeuk
   TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
 on:
