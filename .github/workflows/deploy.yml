@@ -1,4 +1,4 @@
-name: "Deploy"
+name: Deploy
 env:
   TF_CLOUD_ORGANIZATION: connorgurney
   TF_WORKSPACE: cgmeuk
@@ -14,7 +14,8 @@ jobs:
     permissions:
       contents: read
     steps:
-      - name: Checkout repository
+      - name: Checkout repository from GitHub
+        id: checkout-config
         uses: actions/checkout@v4
         with:
           path: cgmeuk
@@ -22,18 +23,19 @@ jobs:
             content/
             infra/
       - name: Upload repository to Terraform
-        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
         id: upload-config
+        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
         with:
           workspace: ${{ env.TF_WORKSPACE }}
-          directory: ./cgmeuk
+          directory: ./cgmeuk/
       - name: Create Terraform run
-        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
         id: create-run
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
         with:
           workspace: ${{ env.TF_WORKSPACE }}
           configuration_version: ${{ steps.upload-config.outputs.configuration_version_id }}
       - name: Apply Terraform run
+        id: apply-run
         uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.0.0
         if: fromJSON(steps.create-run.outputs.payload).data.attributes.actions.IsConfirmable
         with:
