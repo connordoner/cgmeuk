@@ -16,7 +16,7 @@ If none of those options fit, please send email to [me@connorgurney.me.uk](mailt
 
 ## Standing invitation {#invitation}
 
-Ripped off from my dear friend, [Aaron Carson](https://aaroncarson.co.uk/contact/standing-invitation/), who himself ripped it off from [Matthew Palmer](https://matthewpalmer.net/standing-invitation/), I’m open to you sending or asking me anything that you think that I might either find interesting or be able to help with.</p>
+Ripped off from my dear friend, [Aaron Carson](https://aaroncarson.co.uk/contact/standing-invitation/), who himself ripped it off from [Matthew Palmer](https://matthewpalmer.net/standing-invitation/), I’m open to you sending or asking me anything that you think that I might either find interesting or be able to help with.
 
 For the avoidance of doubt (and, yes, this is sadly a common enough occurrence that it needs mentioning), I am not interested in your sexual fantasies, your anatomy or the intersection between the two. Please see your partner, your doctor, or, in the worst-case scenario, both.
 
