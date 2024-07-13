@@ -1,7 +1,7 @@
 # Terraform configuration
 terraform {
   cloud {
-    organization = "connordoner"
+    organization = "connorgurney"
 
     workspaces {
       name = "cgmeuk"

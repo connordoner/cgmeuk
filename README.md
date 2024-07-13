@@ -26,7 +26,7 @@ I intend to work mostly by myself on this project (it is _my_ personal website, 
 
 If you’d like to contribute code, please open a pull request against this repository. It would be helpful if you could explain what you’ve done and why so that I can understand the underlying reasons for your suggestion.
 
-Otherwise, you can either [create an issue](https://github.com/connordoner/cgmeuk/issues) with details of your suggestion or [email me](mailto:me@connorgurney.me.uk). In any event, please write a descriptive title or subject line, as this helps me to triage suggestions.
+Otherwise, you can either [create an issue](https://github.com/connorgurney/cgmeuk/issues) with details of your suggestion or [email me](mailto:me@connorgurney.me.uk). In any event, please write a descriptive title or subject line, as this helps me to triage suggestions.
 
 All that said, if you’re reporting a security vulnerability, please email me at [security@connorgurney.me.uk](mailto:security@connorgurney.me.uk) instead. This avoids the vulnerability being in the open whilst I work to fix it.
 
