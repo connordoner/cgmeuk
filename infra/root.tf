@@ -19,6 +19,11 @@ module "ssl" {
 # CDN in front of origin
 module "cdn" {
   source = "./cdn"
+
+  origin_id          = module.origin.bucket_id
+  origin_domain_name = module.origin.bucket_domain_name
+
+  certificate_arn = module.ssl.certificate_arn
 }
 
 # Origin where content is stored
@@ -26,4 +31,6 @@ module "origin" {
   source = "./origin"
 
   content = module.content.files
+
+  cdn_arn = module.cdn.distribution_arn
 }
