@@ -12,4 +12,4 @@ I also work for a global telecommunications company and support their residentia
 
 Whilst I seem to have less free time than ever nowadays, I spend what free time I do have trying to keep BlackBerry® smartphones (remember those?!) working, cycling along the UK’s coastline or cooking as authentic a butter chicken as I know how to.
 
-I can be contacted by sending email to [me@connorgurney.me.uk](mailto:me@connorgurney.me.uk). I receive several hundred emails a day so I’d be grateful if you would please include a descriptive subject line to help me to prioritise your email accordingly.
+I can be contacted by following the instructions on my [contact page](./me/contact.html). I receive several hundred emails and text messages each and every a day so I’d be grateful if you would please follow the ettiquette described on that page.
