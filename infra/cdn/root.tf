@@ -26,6 +26,14 @@ resource "aws_cloudfront_distribution" "root" {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
 
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
+
     viewer_protocol_policy = "redirect-to-https"
   }
 
