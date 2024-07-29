@@ -29,8 +29,7 @@ provider "aws" {
 }
 
 # AWS configuration for the USA
-# This is used to create my SSL and TLS certificates as Amazon CloudFront
-# requires that they be hosted there
+# This is used to create my SSL and TLS certificates as Amazon CloudFront requires that they be hosted there
 provider "aws" {
   alias  = "us"
   region = "us-east-1"
