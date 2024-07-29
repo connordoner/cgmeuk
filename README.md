@@ -10,9 +10,7 @@ You’re also more than welcome to [contribute](#contributing) if you’d like, 
 
 ## Deployment
 
-Although my production environment isn’t publicly available yet, it is possible to deploy changes to it.
-
-This is done automatically when changes are pushed to the `main` branch using a [GitHub Actions workflow](./.github/workflows/deploy.yml).
+Changes are deployed automatically when they’re pushed to the `main` branch using a [GitHub Actions workflow](./.github/workflows/deploy.yml). They can then be accessed at [connorgurney.me.uk](https://www.connorgurney.me.uk).
 
 As long as you’re [logged in to Terraform Cloud](https://developer.hashicorp.com/terraform/tutorials/cloud-get-started/cloud-login), you can also deploy manually by running the following command:
 
