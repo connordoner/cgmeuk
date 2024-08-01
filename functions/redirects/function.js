@@ -27,12 +27,10 @@ const REDIRECT_HTML = `<html>
  * @returns {number}      The HTTP status code.
  */
 function getHttpStatusCodeFromRedirectType(type) {
-    switch(type) {
-        case 'permanent':
-            return 301;
-        case 'temporary':
-            return 302;
-    }
+  switch(type) {
+    case 'permanent': return 301;
+    case 'temporary': return 302;
+  }
 }
 
 /**
@@ -42,12 +40,10 @@ function getHttpStatusCodeFromRedirectType(type) {
  * @returns {string}      The HTTP status description.
  */
 function getHttpStatusDescriptionFromRedirectType(type) {
-    switch(type) {
-        case 'permanent':
-            return 'Moved Permanently';
-        case 'temporary':
-            return 'Found';
-    }
+  switch(type) {
+    case 'permanent': return 'Moved Permanently';
+    case 'temporary': return 'Found';
+  }
 }
 
 /**
@@ -58,22 +54,22 @@ function getHttpStatusDescriptionFromRedirectType(type) {
  * @returns {object}     The redirect object.
  */
 async function fetchRedirectByUri(kv, uri) {
-    // Normalize the URI to check against the KV store
-    let normalizedUri = uri.replace(/\/$/, '');
+  // Normalize the URI to check against the KV store
+  let normalizedUri = uri.replace(/\/$/, '');
 
-    // If a redirect exists for this URI, return it
-    if(await kv.exists(normalizedUri)) {
-        // Fetch the redirect from the key-value store
-        let redirect = await kv.get(normalizedUri, { format: 'json' });
+  // If a redirect exists for this URI, return it
+  if(await kv.exists(normalizedUri)) {
+    // Fetch the redirect from the key-value store
+    let redirect = await kv.get(normalizedUri, { format: 'json' });
 
-        // Return it
-        return redirect;
-    }
+    // Return it
+    return redirect;
+  }
 
-    // Otherwise, return null to indicate that no redirect was found
-    else {
-        return null;
-    }
+  // Otherwise, return null to indicate that no redirect was found
+  else {
+      return null;
+  }
 }
 
 /**
@@ -82,70 +78,70 @@ async function fetchRedirectByUri(kv, uri) {
  * @param {object} event The event object.
  */
 async function handler(event) {
-    // Fetch a handle to the key-value store
-    const kv = cf.kvs(kvStoreId);
+  // Fetch a handle to the key-value store
+  const kv = cf.kvs(kvStoreId);
 
-    // Fetch the original request
-    const request = event.request;
-    
-    // Get the host and URI from the request
-    let host = request.headers.host.value;
-    let uri  = request.uri;
+  // Fetch the original request
+  const request = event.request;
+  
+  // Get the host and URI from the request
+  let host = request.headers.host.value;
+  let uri  = request.uri;
 
-    // If the request is to my non-WWW host, redirect to its WWW equivalent
-    if(host === 'connorgurney.me.uk') {
-        // Form the WWW equivalent
-        var redirectDestination = 'https://www.connorgurney.me.uk' + uri;
+  // If the request is to my non-WWW host, redirect to its WWW equivalent
+  if(host === 'connorgurney.me.uk') {
+    // Form the WWW equivalent
+    var redirectDestination = 'https://www.connorgurney.me.uk' + uri;
 
-        // Mark the redirect as permanent
-        var redirectType = 'permanent';
+    // Mark the redirect as permanent
+    var redirectType = 'permanent';
 
-        // Perform the redirect
-        var shouldRedirect = true;
+    // Perform the redirect
+    var shouldRedirect = true;
+  }
+
+  // If not, check if the URI matches any redirect rules
+  else {
+    // Run that check
+    let redirect = await fetchRedirectByUri(kv, uri);
+
+    // If a redirect was returned, work out where to redirect to and on what terms
+    if(redirect !== null) {
+      // Set the destination
+      var redirectDestination = redirect.destination;
+
+      // Set the redirect type
+      var redirectType = redirect.type;
+
+      // Perform the redirect
+      var shouldRedirect = true;
     }
+  }
 
-    // If not, check if the URI matches any redirect rules
-    else {
-        // Run that check
-        let redirect = await fetchRedirectByUri(kv, uri);
+  // If there's a redirect, action it
+  if(shouldRedirect === true) {
+    // Work out the status code and description
+    let statusCode        = getHttpStatusCodeFromRedirectType(redirectType);
+    let statusDescription = getHttpStatusDescriptionFromRedirectType(redirectType);
 
-        // If a redirect was returned, work out where to redirect to and on what terms
-        if(redirect !== null) {
-            // Set the destination
-            var redirectDestination = redirect.destination;
-
-            // Set the redirect type
-            var redirectType = redirect.type;
-
-            // Perform the redirect
-            var shouldRedirect = true;
+    // Return it to the client
+    return {
+      statusCode,
+      statusDescription,
+      headers: {
+        location: {
+          value: redirectDestination
         }
+      },
+      body: {
+          encoding: 'text',
+          data: REDIRECT_HTML
+      }
     }
+  }
 
-    // If there's a redirect, action it
-    if(shouldRedirect === true) {
-        // Work out the status code and description
-        let statusCode        = getHttpStatusCodeFromRedirectType(redirectType);
-        let statusDescription = getHttpStatusDescriptionFromRedirectType(redirectType);
-
-        // Return it to the client
-        return {
-            statusCode,
-            statusDescription,
-            headers: {
-                location: {
-                    value: redirectDestination
-                }
-            },
-            body: {
-                encoding: 'text',
-                data: REDIRECT_HTML
-            }
-        }
-    }
-
-    // Otherwise, return the original request for onward processing
-    else {
-        return request;
-    }
+  // Otherwise, return the original request for onward processing
+  else {
+    return request;
+  }
 }
