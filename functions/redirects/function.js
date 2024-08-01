@@ -5,7 +5,7 @@ import cf from 'cloudfront';
  * 
  * @var {string}
  */
-const KV_STORE_ID = 'ad319b10-a080-4e13-af95-f1b9177fcd43';
+const KV_STORE_ID = '0e638cf1-5652-48df-8911-6df317d72218';
 
 /**
  * HTML to return to the client when a redirect is triggered.
