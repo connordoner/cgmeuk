@@ -1,7 +1,40 @@
+body,
+input,
+textarea,
+select,
+button {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  padding: 0.75vw 1vw;
+
+  background-color: black;
+  color: white;
+}
+
+header h1 {
+  margin: 0;
+}
+
+main {
+  padding: 0.75vw 1.5vw;
+}
+
 footer {
-  font-style: italic;
+  padding: 0 1.5vw;
+}
+
+footer hr {
+  margin: 0;
 }
 
 footer p {
-  margin: 0;
+  margin-top: 0.5vw;
+  
+  font-style: italic;
 }
