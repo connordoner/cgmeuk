@@ -21,6 +21,7 @@ jobs:
           path: cgmeuk
           sparse-checkout: |
             content/
+            functions/
             infra/
       - name: Upload repository to Terraform
         id: upload-config
