@@ -11,7 +11,7 @@ body {
 }
 
 header {
-  padding: 0.75vw 1vw;
+  padding: 0.75vw 1.5vw;
 
   background-color: black;
   color: white;
@@ -22,7 +22,15 @@ header h1 {
 }
 
 main {
-  padding: 0.75vw 1.5vw;
+  padding: 1.5vw;
+}
+
+main p:first-of-type {
+  margin-top: 0;
+}
+
+main p:last-of-type {
+  margin-bottom: 0;
 }
 
 footer {
@@ -35,6 +43,6 @@ footer hr {
 
 footer p {
   margin-top: 0.5vw;
-  
+
   font-style: italic;
 }
