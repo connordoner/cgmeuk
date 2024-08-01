@@ -1,6 +1,6 @@
 # Bucket itself
 resource "aws_s3_bucket" "content" {
-  bucket = "cgmeuk-content"
+  bucket = "connorgurney-cgmeuk-prod-content"
 }
 
 # Content within bucket

@@ -1,6 +1,6 @@
 # Function itself
 resource "aws_cloudfront_function" "redirects" {
-  name    = "cgmeuk-redirects"
+  name    = "connorgurney-cgmeuk-prod-redirects"
   comment = "Handles redirects to content and from non-WWW to WWW."
   publish = true
 
@@ -12,7 +12,7 @@ resource "aws_cloudfront_function" "redirects" {
 
 # Key-value store to store redirect rules
 resource "aws_cloudfront_key_value_store" "redirects" {
-  name    = "cgmeuk-redirects"
+  name    = "connorgurney-cgmeuk-prod-redirects"
   comment = "Holds paths to redirect, their destinations and metadata about them."
 }
 
