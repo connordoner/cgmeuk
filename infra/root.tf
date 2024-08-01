@@ -24,6 +24,8 @@ module "cdn" {
   origin_domain_name = module.origin.bucket_domain_name
 
   certificate_arn = module.ssl.certificate_arn
+
+  redirects_function_arn = module.functions.redirects_function_arn
 }
 
 # Origin where content is stored
@@ -33,4 +35,9 @@ module "origin" {
   content = module.content.files
 
   cdn_arn = module.cdn.distribution_arn
+}
+
+# Functions and Lambdas
+module "functions" {
+  source = "./functions"
 }

@@ -35,6 +35,11 @@ resource "aws_cloudfront_distribution" "root" {
     }
 
     viewer_protocol_policy = "redirect-to-https"
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = var.redirects_function_arn
+    }
   }
 
   restrictions {

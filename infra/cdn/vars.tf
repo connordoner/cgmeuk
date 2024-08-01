@@ -12,3 +12,8 @@ variable "origin_domain_name" {
 variable "certificate_arn" {
   description = "ARN of the SSL and TLS certificate to serve content with."
 }
+
+# ARN of CloudFront function used to handle redirects
+variable "redirects_function_arn" {
+  description = "ARN of the CloudFront function used to handle redirects."
+}

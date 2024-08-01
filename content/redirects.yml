@@ -1,0 +1,7 @@
+---
+
+- source: /contact
+  destination: /me/contact.html
+  type: path
+  status: permanent
+  reason: short
