@@ -1,19 +1,45 @@
+@import url('https://rsms.me/inter/inter.css');
+
+html {
+  background-color: #F5F5F5;
+}
+
 body,
 input,
 textarea,
 select,
 button {
-  font-family: sans-serif;
+  background-color: #FFF;
+
+  font-family: Inter, sans-serif;
 }
 
 body {
   margin: 0;
 }
 
+a:link {
+  color: #2563EB;
+
+  text-underline-offset: 2px;
+}
+
+a:link:hover {
+  color: #1E3A8A;
+}
+
+a:visited {
+  color: #7E22CE;
+}
+
+a:visited:hover {
+  color: #581C87;
+}
+
 header {
   padding: 12px 16px;
 
-  background-color: black;
+  background-color: #262626;
   color: white;
 }
 
@@ -22,7 +48,7 @@ header h1 {
 }
 
 main {
-  padding: 20px 16px;
+  padding: 24px 16px;
 }
 
 main p:first-of-type {
@@ -34,7 +60,10 @@ main p:last-of-type {
 }
 
 footer {
-  padding: 0 16px;
+  padding: 16px;
+
+  background-color: #F5F5F5;
+  border-top: 1px solid #d4d4d4;
 }
 
 footer hr {
@@ -42,7 +71,10 @@ footer hr {
 }
 
 footer p {
-  margin-top: 8px;
+  margin: 0;
 
+  color: #525252;
+
+  font-size: small;
   font-style: italic;
 }
