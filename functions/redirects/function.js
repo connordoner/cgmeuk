@@ -5,7 +5,7 @@ import cf from 'cloudfront';
  * 
  * @var {string}
  */
-const kvStoreId = 'ad319b10-a080-4e13-af95-f1b9177fcd43';
+const KV_STORE_ID = 'ad319b10-a080-4e13-af95-f1b9177fcd43';
 
 /**
  * HTML to return to the client when a redirect is triggered.
@@ -79,14 +79,14 @@ async function fetchRedirectByUri(kv, uri) {
  */
 async function handler(event) {
   // Fetch a handle to the key-value store
-  const kv = cf.kvs(kvStoreId);
+  const kv = cf.kvs(KV_STORE_ID);
 
   // Fetch the original request
   const request = event.request;
   
   // Get the host and URI from the request
-  let host = request.headers.host.value;
-  let uri  = request.uri;
+  const host = request.headers.host.value;
+  const uri  = request.uri;
 
   // If the request is to my non-WWW host, redirect to its WWW equivalent
   if(host === 'connorgurney.me.uk') {
